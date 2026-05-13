@@ -80,6 +80,12 @@ The platform allows users to explore tourist destinations, book hotels, make sec
 ## Homepage 2
 ![Homepage 2](screenshots/homepage-2.jpg)
 
+## Login Page
+![Login Page](screenshots/login.jpg)
+
+## Register Page
+![Register Page](screenshots/register.jpg)
+
 ## Admin Dashboard
 ![Admin Dashboard](screenshots/admin-dashboard.jpg)
 
@@ -109,3 +115,4 @@ The platform allows users to explore tourist destinations, book hotels, make sec
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/TripNext-AI.git
+```
