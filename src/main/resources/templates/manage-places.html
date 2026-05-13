@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Manage Places | TripNext AI
+</title>
+
+<!-- Bootstrap -->
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<!-- Google Fonts -->
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    background:
+    linear-gradient(
+        135deg,
+        #eef4ff,
+        #f8fbff,
+        #ede9fe
+    );
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    position:relative;
+}
+
+/* BACKGROUND */
+
+.bg-circle{
+
+    position:fixed;
+
+    border-radius:50%;
+
+    filter:blur(120px);
+
+    z-index:-1;
+
+    animation:
+    float 10s infinite ease-in-out;
+}
+
+.circle1{
+
+    width:350px;
+    height:350px;
+
+    background:#2563eb;
+
+    top:-120px;
+    left:-100px;
+
+    opacity:0.18;
+}
+
+.circle2{
+
+    width:400px;
+    height:400px;
+
+    background:#7c3aed;
+
+    bottom:-140px;
+    right:-120px;
+
+    opacity:0.15;
+}
+
+@keyframes float{
+
+    0%{
+        transform:
+        translateY(0px);
+    }
+
+    50%{
+        transform:
+        translateY(-20px);
+    }
+
+    100%{
+        transform:
+        translateY(0px);
+    }
+}
+
+/* NAVBAR */
+
+.navbar{
+
+    background:
+    rgba(255,255,255,0.7);
+
+    backdrop-filter:blur(18px);
+
+    padding:18px 40px;
+
+    box-shadow:
+    0 8px 30px rgba(0,0,0,0.06);
+}
+
+.navbar-brand{
+
+    font-size:34px;
+
+    font-weight:800;
+
+    background:
+    linear-gradient(
+        to right,
+        #2563eb,
+        #7c3aed
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+/* DASHBOARD BUTTON */
+
+.dashboard-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px 22px;
+
+    border-radius:14px;
+
+    text-decoration:none;
+
+    color:white;
+
+    font-weight:600;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    transition:0.3s;
+
+    margin-bottom:25px;
+}
+
+.dashboard-btn:hover{
+
+    transform:
+    translateY(-2px);
+
+    opacity:0.95;
+
+    color:white;
+}
+
+/* HEADER */
+
+.page-header{
+
+    text-align:center;
+
+    padding:50px 20px 20px;
+}
+
+.page-header h1{
+
+    font-size:52px;
+
+    font-weight:800;
+
+    background:
+    linear-gradient(
+        to right,
+        #2563eb,
+        #7c3aed
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+.page-header p{
+
+    color:#6b7280;
+
+    margin-top:10px;
+
+    font-size:17px;
+}
+
+/* SECTION */
+
+.section{
+
+    padding:40px 0 80px;
+}
+
+/* PLACE CARD */
+
+.place-card{
+
+    border:none;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    background:
+    rgba(255,255,255,0.82);
+
+    backdrop-filter:blur(18px);
+
+    transition:0.4s;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,0.08);
+
+    height:100%;
+}
+
+.place-card:hover{
+
+    transform:
+    translateY(-10px)
+    scale(1.02);
+
+    box-shadow:
+    0 25px 50px rgba(37,99,235,0.18);
+}
+
+.place-card img{
+
+    width:100%;
+
+    height:260px;
+
+    object-fit:cover;
+}
+
+.place-card .card-body{
+
+    padding:28px;
+}
+
+.place-card h4{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+    color:#111827;
+}
+
+.location{
+
+    color:#6b7280;
+
+    margin-bottom:12px;
+
+    font-size:16px;
+}
+
+.category{
+
+    display:inline-block;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color:white;
+
+    padding:10px 18px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+}
+
+.description{
+
+    color:#4b5563;
+
+    line-height:1.7;
+}
+
+/* BUTTONS */
+
+.btn-group-custom{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:25px;
+}
+
+.btn-custom{
+
+    flex:1;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:14px;
+
+    font-weight:600;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+.btn-primary{
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    border:none;
+}
+
+.btn-danger{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ef4444,
+        #dc2626
+    );
+
+    border:none;
+}
+
+/* FOOTER */
+
+footer{
+
+    margin-top:40px;
+
+    background:
+    linear-gradient(
+        to right,
+        #111827,
+        #1e3a8a,
+        #4f46e5
+    );
+
+    color:white;
+
+    padding:45px;
+
+    text-align:center;
+}
+
+footer h3{
+
+    font-size:34px;
+
+    font-weight:800;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="bg-circle circle1"></div>
+<div class="bg-circle circle2"></div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg">
+
+    <div class="container-fluid">
+
+        <a class="navbar-brand"
+           href="/admin-dashboard">
+
+            TripNext AI
+
+        </a>
+
+    </div>
+
+</nav>
+
+<!-- HEADER -->
+
+<div class="container pt-5">
+
+    <a href="/admin-dashboard"
+       class="dashboard-btn">
+
+        <i class="bi bi-arrow-left-circle-fill"></i>
+
+        Back To Dashboard
+
+    </a>
+
+</div>
+
+<div class="page-header">
+
+    <h1>
+        Manage Places
+    </h1>
+
+    <p>
+        Edit and manage all tourist destinations from admin panel
+    </p>
+
+</div>
+
+<!-- PLACES -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div
+            class="row g-4"
+            id="placeContainer">
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h3>
+        TripNext AI
+    </h3>
+
+    <p>
+        AI Powered Travel & Hotel Booking Platform
+    </p>
+
+</footer>
+
+<!-- SCRIPT -->
+
+<script>
+
+/* LOAD PLACES */
+
+async function loadPlaces(){
+
+    try{
+
+        const response =
+        await fetch(
+
+"http://localhost:8080/api/places/all"
+
+        );
+
+        const places =
+        await response.json();
+
+        let data = "";
+
+        places.forEach(place => {
+
+            data += `
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="card place-card">
+
+                    <img
+                    src="${place.imageUrl}"
+                    class="card-img-top">
+
+                    <div class="card-body">
+
+                        <h4>
+                            ${place.placeName}
+                        </h4>
+
+                        <p class="location">
+
+                            <i class="bi bi-geo-alt-fill"></i>
+
+                            ${place.location}
+
+                        </p>
+
+                        <div class="category">
+
+                            ${place.category}
+
+                        </div>
+
+                        <p class="description">
+
+                            ${place.description}
+
+                        </p>
+
+                        <div class="btn-group-custom">
+
+                            <!-- UPDATE -->
+
+                            <button
+                            class="btn btn-primary btn-custom"
+
+onclick="updatePlace(${place.id})">
+
+                            Update
+
+                            </button>
+
+                            <!-- DELETE -->
+
+                            <button
+                            class="btn btn-danger btn-custom"
+
+onclick="deletePlace(${place.id})">
+
+                            Delete
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            `;
+        });
+
+        document.getElementById(
+            "placeContainer"
+        ).innerHTML = data;
+
+    }catch(error){
+
+        console.log(error);
+
+        alert(
+            "Error Loading Places"
+        );
+    }
+}
+
+/* DELETE PLACE */
+
+async function deletePlace(id){
+
+    const confirmDelete =
+    confirm(
+        "Delete this place?"
+    );
+
+    if(!confirmDelete){
+
+        return;
+    }
+
+    try{
+
+        const response =
+        await fetch(
+
+"http://localhost:8080/api/places/delete/" + id,
+
+        {
+            method:"DELETE"
+        });
+
+        if(response.ok){
+
+            alert(
+                "Place Deleted Successfully"
+            );
+
+            loadPlaces();
+
+        }else{
+
+            alert(
+                "Failed To Delete Place"
+            );
+        }
+
+    }catch(error){
+
+        console.log(error);
+
+        alert(
+            "Something Went Wrong"
+        );
+    }
+}
+
+/* UPDATE PLACE */
+
+function updatePlace(id){
+
+    window.location.href =
+    "/update-place?id=" + id;
+}
+
+/* LOAD */
+
+loadPlaces();
+
+</script>
+
+</body>
+
+</html>

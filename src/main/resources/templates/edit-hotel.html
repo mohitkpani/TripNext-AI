@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Update Hotel | TripNext AI</title>
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+        135deg,
+        #eef4ff,
+        #f3f7ff,
+        #ede9fe
+    );
+
+    overflow-x:hidden;
+
+    position:relative;
+}
+
+/* BACKGROUND */
+
+.bg-circle{
+
+    position:fixed;
+
+    border-radius:50%;
+
+    filter:blur(120px);
+
+    z-index:-1;
+
+    animation:
+    float 10s infinite ease-in-out;
+}
+
+.circle1{
+
+    width:350px;
+    height:350px;
+
+    background:#2563eb;
+
+    top:-120px;
+    left:-100px;
+
+    opacity:0.18;
+}
+
+.circle2{
+
+    width:400px;
+    height:400px;
+
+    background:#7c3aed;
+
+    bottom:-140px;
+    right:-120px;
+
+    opacity:0.15;
+}
+
+@keyframes float{
+
+    0%{
+        transform:
+        translateY(0px);
+    }
+
+    50%{
+        transform:
+        translateY(-20px);
+    }
+
+    100%{
+        transform:
+        translateY(0px);
+    }
+}
+
+/* NAVBAR */
+
+.navbar{
+
+    background:
+    rgba(255,255,255,0.7);
+
+    backdrop-filter:blur(18px);
+
+    padding:18px 40px;
+
+    box-shadow:
+    0 8px 30px rgba(0,0,0,0.06);
+}
+
+.navbar-brand{
+
+    font-size:34px;
+
+    font-weight:800;
+
+    background:
+    linear-gradient(
+        to right,
+        #2563eb,
+        #7c3aed
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+/* DASHBOARD BUTTON */
+
+.dashboard-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px 22px;
+
+    border-radius:14px;
+
+    text-decoration:none;
+
+    color:white;
+
+    font-weight:600;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    transition:0.3s;
+
+    margin-bottom:25px;
+}
+
+.dashboard-btn:hover{
+
+    transform:
+    translateY(-2px);
+
+    opacity:0.95;
+
+    color:white;
+}
+
+/* PAGE */
+
+.page-wrapper{
+
+    padding:60px 0;
+}
+
+/* FORM CARD */
+
+.update-card{
+
+    background:
+    rgba(255,255,255,0.82);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:35px;
+
+    padding:45px;
+
+    box-shadow:
+    0 20px 50px rgba(0,0,0,0.08);
+
+    border:
+    1px solid rgba(255,255,255,0.5);
+}
+
+/* TITLE */
+
+.page-title{
+
+    font-size:46px;
+
+    font-weight:800;
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+    background:
+    linear-gradient(
+        to right,
+        #2563eb,
+        #7c3aed
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+/* FORM */
+
+.form-label{
+
+    font-weight:600;
+
+    margin-bottom:10px;
+
+    color:#111827;
+}
+
+.form-control{
+
+    height:58px;
+
+    border-radius:16px;
+
+    border:1px solid #dbeafe;
+
+    padding-left:18px;
+
+    font-size:16px;
+
+    transition:0.3s;
+}
+
+textarea.form-control{
+
+    height:160px;
+
+    resize:none;
+
+    padding-top:18px;
+}
+
+.form-control:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:
+    0 0 0 4px rgba(37,99,235,0.12);
+}
+
+/* BUTTON */
+
+.update-btn{
+
+    height:58px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    font-size:18px;
+
+    font-weight:600;
+
+    color:white;
+
+    transition:0.3s;
+}
+
+.update-btn:hover{
+
+    transform:
+    translateY(-2px);
+
+    opacity:0.95;
+}
+
+/* PREVIEW */
+
+.preview-card{
+
+    background:white;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,0.08);
+
+    height:100%;
+}
+
+.preview-image{
+
+    width:100%;
+
+    height:280px;
+
+    object-fit:cover;
+}
+
+.preview-body{
+
+    padding:28px;
+}
+
+.preview-title{
+
+    font-size:34px;
+
+    font-weight:700;
+
+    color:#111827;
+}
+
+.preview-location{
+
+    color:#6b7280;
+
+    margin-top:8px;
+}
+
+.preview-price{
+
+    margin-top:20px;
+
+    color:#2563eb;
+
+    font-size:38px;
+
+    font-weight:700;
+}
+
+.preview-rating{
+
+    margin-top:10px;
+
+    color:#f59e0b;
+
+    font-weight:600;
+
+    font-size:18px;
+}
+
+.preview-description{
+
+    margin-top:22px;
+
+    color:#374151;
+
+    line-height:1.8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="bg-circle circle1"></div>
+<div class="bg-circle circle2"></div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg">
+
+    <div class="container-fluid">
+
+        <a class="navbar-brand"
+           href="/admin-dashboard">
+
+            TripNext AI
+
+        </a>
+
+    </div>
+
+</nav>
+
+<!-- PAGE -->
+
+<section class="page-wrapper">
+
+    <div class="container">
+
+        <!-- BACK BUTTON -->
+
+        <a href="/admin-dashboard"
+           class="dashboard-btn">
+
+            <i class="bi bi-arrow-left-circle-fill"></i>
+
+            Back To Dashboard
+
+        </a>
+
+        <div class="row g-5">
+
+            <!-- FORM -->
+
+            <div class="col-lg-6">
+
+                <div class="update-card">
+
+                    <h1 class="page-title">
+
+                        Update Hotel
+
+                    </h1>
+
+                    <form id="updateForm">
+
+                        <!-- NAME -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+
+                                Hotel Name
+
+                            </label>
+
+                            <input type="text"
+                                   id="hotelName"
+                                   class="form-control"
+                                   required>
+
+                        </div>
+
+                        <!-- LOCATION -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+
+                                Location
+
+                            </label>
+
+                            <input type="text"
+                                   id="location"
+                                   class="form-control"
+                                   required>
+
+                        </div>
+
+                        <!-- IMAGE -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+
+                                Image URL
+
+                            </label>
+
+                            <input type="text"
+                                   id="imageUrl"
+                                   class="form-control"
+                                   required>
+
+                        </div>
+
+                        <!-- PRICE -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+
+                                Price
+
+                            </label>
+
+                            <input type="number"
+                                   id="price"
+                                   class="form-control"
+                                   required>
+
+                        </div>
+
+                        <!-- RATING -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+
+                                Rating
+
+                            </label>
+
+                            <input type="number"
+                                   step="0.1"
+                                   id="rating"
+                                   class="form-control"
+                                   required>
+
+                        </div>
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+
+                                Description
+
+                            </label>
+
+                            <textarea id="description"
+                                      class="form-control"
+                                      required></textarea>
+
+                        </div>
+
+                        <!-- BUTTON -->
+
+                        <button type="submit"
+                                class="btn update-btn w-100">
+
+                            Update Hotel
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <!-- LIVE PREVIEW -->
+
+            <div class="col-lg-6">
+
+                <div class="preview-card">
+
+                    <img id="previewImage"
+                         class="preview-image"
+                         src="">
+
+                    <div class="preview-body">
+
+                        <h2 id="previewName"
+                            class="preview-title">
+
+                            Hotel Name
+
+                        </h2>
+
+                        <p id="previewLocation"
+                           class="preview-location">
+
+                           <i class="bi bi-geo-alt-fill"></i>
+
+                           Location
+
+                        </p>
+
+                        <div id="previewPrice"
+                             class="preview-price">
+
+                            ₹0 /night
+
+                        </div>
+
+                        <div id="previewRating"
+                             class="preview-rating">
+
+                            ⭐ 0.0 Rating
+
+                        </div>
+
+                        <p id="previewDescription"
+                           class="preview-description">
+
+                            Description
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+
+/* HOTEL ID */
+
+const params =
+new URLSearchParams(
+    window.location.search
+);
+
+const hotelId =
+params.get("id");
+
+/* INPUTS */
+
+const hotelName =
+document.getElementById("hotelName");
+
+const locationInput =
+document.getElementById("location");
+
+const imageUrl =
+document.getElementById("imageUrl");
+
+const price =
+document.getElementById("price");
+
+const rating =
+document.getElementById("rating");
+
+const description =
+document.getElementById("description");
+
+/* LIVE PREVIEW */
+
+function updatePreview(){
+
+    document.getElementById(
+        "previewName"
+    ).innerText =
+    hotelName.value || "Hotel Name";
+
+    document.getElementById(
+        "previewLocation"
+    ).innerHTML =
+
+    `<i class="bi bi-geo-alt-fill"></i>
+     ${locationInput.value || "Location"}`;
+
+    document.getElementById(
+        "previewPrice"
+    ).innerText =
+
+    `₹${price.value || 0} /night`;
+
+    document.getElementById(
+        "previewRating"
+    ).innerText =
+
+    `⭐ ${rating.value || 0} Rating`;
+
+    document.getElementById(
+        "previewDescription"
+    ).innerText =
+    description.value || "Description";
+
+    document.getElementById(
+        "previewImage"
+    ).src =
+    imageUrl.value ||
+    "https://images.unsplash.com/photo-1566073771259-6a8506099945";
+}
+
+/* EVENTS */
+
+hotelName.addEventListener(
+    "input",
+    updatePreview
+);
+
+locationInput.addEventListener(
+    "input",
+    updatePreview
+);
+
+imageUrl.addEventListener(
+    "input",
+    updatePreview
+);
+
+price.addEventListener(
+    "input",
+    updatePreview
+);
+
+rating.addEventListener(
+    "input",
+    updatePreview
+);
+
+description.addEventListener(
+    "input",
+    updatePreview
+);
+
+/* LOAD HOTEL */
+
+async function loadHotel(){
+
+    try{
+
+        const response =
+        await fetch(
+
+`http://localhost:8080/api/hotels/${hotelId}`
+
+        );
+
+        const hotel =
+        await response.json();
+
+        hotelName.value =
+        hotel.hotelName;
+
+        locationInput.value =
+        hotel.location;
+
+        imageUrl.value =
+        hotel.imageUrl;
+
+        price.value =
+        hotel.price;
+
+        rating.value =
+        hotel.rating;
+
+        description.value =
+        hotel.description;
+
+        updatePreview();
+
+    }catch(error){
+
+        console.log(error);
+
+        alert("Failed to load hotel");
+    }
+}
+
+/* UPDATE HOTEL */
+
+document.getElementById(
+    "updateForm"
+).addEventListener(
+
+    "submit",
+
+    async function(event){
+
+        event.preventDefault();
+
+        const updatedHotel = {
+
+            hotelName:
+            hotelName.value,
+
+            location:
+            locationInput.value,
+
+            imageUrl:
+            imageUrl.value,
+
+            price:
+            price.value,
+
+            rating:
+            rating.value,
+
+            description:
+            description.value
+        };
+
+        try{
+
+            const response =
+            await fetch(
+
+`http://localhost:8080/api/hotels/update/${hotelId}`,
+
+            {
+                method:"PUT",
+
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:
+                JSON.stringify(updatedHotel)
+            }
+
+            );
+
+            if(response.ok){
+
+                alert(
+                    "Hotel Updated Successfully"
+                );
+
+                window.location.href =
+                "/admin-dashboard";
+
+            }else{
+
+                alert(
+                    "Failed To Update Hotel"
+                );
+            }
+
+        }catch(error){
+
+            console.log(error);
+
+            alert(
+                "Something went wrong!"
+            );
+        }
+    }
+);
+
+/* LOAD */
+
+loadHotel();
+
+</script>
+
+</body>
+
+</html>

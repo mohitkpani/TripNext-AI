@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Search Hotels | TripNext AI</title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+}
+
+/* Navbar */
+
+.navbar{
+    background:white;
+    padding:18px 40px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.08);
+}
+
+.navbar-brand{
+    font-size:32px;
+    font-weight:700;
+    color:#2563eb!important;
+}
+
+/* Container */
+
+.container{
+    padding-top:50px;
+    padding-bottom:70px;
+}
+
+.title{
+    font-size:46px;
+    font-weight:700;
+    margin-bottom:45px;
+    color:#111827;
+}
+
+/* Hotel Card */
+
+.hotel-card{
+    border:none;
+    border-radius:24px;
+    overflow:hidden;
+    background:white;
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.hotel-card:hover{
+    transform:
+    translateY(-8px);
+}
+
+.hotel-card img{
+    height:240px;
+    object-fit:cover;
+}
+
+.hotel-card .card-body{
+    padding:25px;
+}
+
+.hotel-card h4{
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.hotel-location{
+    color:#6b7280;
+    margin-bottom:12px;
+}
+
+.price{
+    color:#2563eb;
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+.view-btn{
+    height:50px;
+    border-radius:14px;
+    font-weight:600;
+}
+
+/* No Hotels */
+
+.no-hotels{
+    text-align:center;
+    font-size:30px;
+    font-weight:600;
+    color:#6b7280;
+    margin-top:100px;
+}
+
+/* Footer */
+
+footer{
+    margin-top:80px;
+    background:
+    linear-gradient(
+        to right,
+        #111827,
+        #1e3a8a
+    );
+    color:white;
+    padding:40px;
+    text-align:center;
+}
+
+footer h3{
+    font-size:34px;
+    font-weight:700;
+}
+
+footer p{
+    opacity:0.9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+
+<nav class="navbar navbar-expand-lg">
+
+<div class="container-fluid">
+
+<a class="navbar-brand" href="/">
+TripNext AI
+</a>
+
+</div>
+
+</nav>
+
+<!-- Search Result -->
+
+<div class="container">
+
+<h1 class="title">
+Search Results
+</h1>
+
+<div
+class="row g-4"
+id="hotelContainer">
+
+</div>
+
+</div>
+
+<!-- Footer -->
+
+<footer>
+
+<h3>
+TripNext AI
+</h3>
+
+<p>
+AI Powered Travel & Hotel Booking Platform
+</p>
+
+</footer>
+
+<!-- Script -->
+
+<script>
+
+async function loadHotels(){
+
+    const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+    const keyword =
+    params.get("keyword");
+
+    console.log(keyword);
+
+    try{
+
+        const response =
+        await fetch(
+
+"http://localhost:8080/api/hotels/search-all?keyword=" + keyword
+
+        );
+
+        const hotels =
+        await response.json();
+
+        console.log(hotels);
+
+        let data = "";
+
+        if(hotels.length === 0){
+
+            document.getElementById(
+                "hotelContainer"
+            ).innerHTML =
+
+            `<div class="no-hotels">
+                No Hotels Found
+            </div>`;
+
+            return;
+        }
+
+        hotels.forEach(hotel => {
+
+            data += `
+
+            <div class="col-md-4">
+
+                <div class="card hotel-card">
+
+                    <img
+                    src="${hotel.imageUrl || 'https://images.unsplash.com/photo-1566073771259-6a8506099945'}"
+                    class="card-img-top">
+
+                    <div class="card-body">
+
+                        <h4>
+                        ${hotel.hotelName}
+                        </h4>
+
+                        <p class="hotel-location">
+                        ${hotel.location}
+                        </p>
+
+                        <p class="price">
+                        ₹${hotel.price}
+                        </p>
+
+                        <button
+                        class="btn btn-primary w-100 view-btn"
+                        onclick="viewHotel(${hotel.id})">
+
+                        View Details
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            `;
+        });
+
+        document.getElementById(
+            "hotelContainer"
+        ).innerHTML = data;
+
+    }catch(error){
+
+        console.log(error);
+
+        alert("Error loading hotels");
+    }
+}
+
+function viewHotel(id){
+
+    window.location.href =
+"http://localhost:8080/hotel-details?id=" + id;
+}
+
+loadHotels();
+
+</script>
+
+</body>
+
+</html>

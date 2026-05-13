@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Explore Places | TripNext AI
+</title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+}
+
+/* HERO */
+
+.hero{
+
+    height:45vh;
+
+    background:
+
+    linear-gradient(
+        rgba(0,0,0,0.5),
+        rgba(0,0,0,0.5)
+    ),
+
+    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+
+    background-size:cover;
+
+    background-position:center;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    color:white;
+}
+
+.hero h1{
+
+    font-size:65px;
+
+    font-weight:700;
+}
+
+.hero p{
+
+    font-size:22px;
+
+    margin-top:15px;
+}
+
+/* SEARCH */
+
+.search-box{
+
+    margin-top:-35px;
+}
+
+.search-card{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:24px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* SECTION */
+
+.section{
+
+    padding:80px 0;
+}
+
+.section-title{
+
+    text-align:center;
+
+    font-size:42px;
+
+    font-weight:700;
+
+    margin-bottom:50px;
+
+    color:#111827;
+}
+
+/* PLACE CARD */
+
+.place-card{
+
+    border:none;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    background:white;
+
+    transition:0.4s;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.1);
+
+    height:100%;
+}
+
+.place-card:hover{
+
+    transform:
+    translateY(-10px)
+    scale(1.02);
+}
+
+.place-card img{
+
+    height:240px;
+
+    object-fit:cover;
+}
+
+.place-card .card-body{
+
+    padding:25px;
+}
+
+.place-card h4{
+
+    font-size:24px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+}
+
+.location{
+
+    color:#6b7280;
+
+    margin-bottom:10px;
+}
+
+.category{
+
+    color:#2563eb;
+
+    font-weight:600;
+
+    margin-bottom:15px;
+}
+
+.explore-btn{
+
+    border-radius:14px;
+
+    font-weight:600;
+
+    margin-top:15px;
+}
+
+/* FOOTER */
+
+footer{
+
+    margin-top:60px;
+
+    background:
+    linear-gradient(
+        to right,
+        #111827,
+        #1e3a8a
+    );
+
+    color:white;
+
+    padding:40px;
+
+    text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div>
+
+        <h1>
+            Explore Places
+        </h1>
+
+        <p>
+            Discover Amazing Tourist Destinations
+        </p>
+
+    </div>
+
+</section>
+
+<!-- SEARCH -->
+
+<div class="container search-box">
+
+    <div class="search-card">
+
+        <div class="row g-3">
+
+            <div class="col-md-10">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="form-control form-control-lg"
+                    placeholder="Search Places...">
+
+            </div>
+
+            <div class="col-md-2">
+
+                <button
+                    class="btn btn-primary btn-lg w-100"
+                    onclick="searchPlaces()">
+
+                    Search
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- PLACES -->
+
+<section class="section">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            Popular Destinations
+        </h2>
+
+        <div
+            class="row g-4"
+            id="placesContainer">
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h3>
+        TripNext AI
+    </h3>
+
+    <p>
+        Explore • Travel • Discover
+    </p>
+
+    <p style="margin-top:20px;">
+
+        Developed By Mohit Kumar Pani
+
+    </p>
+
+</footer>
+
+<!-- SCRIPT -->
+
+<script>
+
+let allPlaces = [];
+
+/* LOAD ALL PLACES */
+
+async function loadPlaces(){
+
+    try{
+
+        const response =
+        await fetch(
+
+"http://localhost:8080/api/places/all"
+
+        );
+
+        const places =
+        await response.json();
+
+        allPlaces = places;
+
+        displayPlaces(places);
+
+    }catch(error){
+
+        console.log(error);
+    }
+}
+
+/* DISPLAY PLACES */
+
+function displayPlaces(places){
+
+    let data = "";
+
+    places.forEach(place => {
+
+        data += `
+
+        <div class="col-md-4">
+
+            <div class="card place-card">
+
+                <img
+                src="${place.imageUrl}"
+                class="card-img-top">
+
+                <div class="card-body">
+
+                    <h4>
+                        ${place.placeName}
+                    </h4>
+
+                    <p class="location">
+
+                        <i class="bi bi-geo-alt-fill"></i>
+
+                        ${place.location}
+
+                    </p>
+
+                    <p class="category">
+
+                        ${place.category}
+
+                    </p>
+
+                    <p>
+
+                        ${place.description}
+
+                    </p>
+
+                    <button
+                        class="btn btn-primary w-100 explore-btn"
+
+onclick="openPlaceDetails(${place.id})">
+
+                        Explore
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+    });
+
+    document.getElementById(
+        "placesContainer"
+    ).innerHTML = data;
+}
+
+/* SEARCH */
+
+function searchPlaces(){
+
+    const keyword =
+    document.getElementById(
+        "searchInput"
+    ).value.toLowerCase();
+
+    const filteredPlaces =
+    allPlaces.filter(place =>
+
+        place.placeName
+        .toLowerCase()
+        .includes(keyword)
+
+        ||
+
+        place.location
+        .toLowerCase()
+        .includes(keyword)
+
+        ||
+
+        place.category
+        .toLowerCase()
+        .includes(keyword)
+    );
+
+    displayPlaces(filteredPlaces);
+}
+
+/* OPEN DETAILS */
+
+function openPlaceDetails(id){
+
+    window.location.href =
+    "/place-details?id=" + id;
+}
+
+/* LOAD */
+
+loadPlaces();
+
+</script>
+
+</body>
+
+</html>

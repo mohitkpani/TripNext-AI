@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Hotel Details | TripNext AI</title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+}
+
+.navbar{
+    background:white;
+    padding:18px 40px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.08);
+}
+
+.navbar-brand{
+    font-size:34px;
+    font-weight:700;
+    color:#2563eb!important;
+}
+
+.hotel-section{
+    padding:40px 0 60px;
+}
+
+.hotel-banner{
+    position:relative;
+    border-radius:30px;
+    overflow:hidden;
+    height:420px;
+}
+
+.banner-image{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.banner-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to top,
+        rgba(0,0,0,0.75),
+        rgba(0,0,0,0.15)
+    );
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:40px;
+    color:white;
+}
+
+.banner-overlay h1{
+    font-size:56px;
+    font-weight:700;
+}
+
+.banner-overlay p{
+    font-size:20px;
+    opacity:0.9;
+}
+
+.hotel-info-card{
+    background:white;
+    padding:35px;
+    border-radius:28px;
+    box-shadow:0 12px 35px rgba(0,0,0,0.08);
+}
+
+#hotelPrice{
+    color:#2563eb;
+    font-size:46px;
+    font-weight:700;
+}
+
+#hotelPrice span{
+    font-size:24px;
+    color:#6b7280;
+}
+
+.hotel-rating{
+    margin:20px 0;
+    color:#f59e0b;
+    font-size:18px;
+    font-weight:600;
+}
+
+#hotelDescription{
+    color:#374151;
+    line-height:1.8;
+}
+
+.amenities{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.amenity-box{
+    background:#f1f5f9;
+    padding:20px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    font-weight:600;
+}
+
+.amenity-box i{
+    font-size:28px;
+    color:#2563eb;
+}
+
+.booking-card{
+    background:white;
+    padding:35px;
+    border-radius:28px;
+    box-shadow:0 12px 35px rgba(0,0,0,0.08);
+    position:sticky;
+    top:20px;
+}
+
+.booking-card h3{
+    font-size:32px;
+    font-weight:700;
+}
+
+.form-control{
+    height:55px;
+    border-radius:14px;
+}
+
+.book-btn{
+    height:55px;
+    border-radius:14px;
+    font-size:18px;
+    font-weight:600;
+}
+
+footer{
+    margin-top:60px;
+    background:linear-gradient(
+        to right,
+        #111827,
+        #1e3a8a
+    );
+    color:white;
+    padding:40px;
+    text-align:center;
+}
+
+footer h3{
+    font-size:36px;
+    font-weight:700;
+}
+
+footer p{
+    opacity:0.9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg">
+
+<div class="container-fluid">
+
+<a class="navbar-brand" href="/">
+TripNext AI
+</a>
+
+</div>
+
+</nav>
+
+<section class="hotel-section">
+
+<div class="container">
+
+<div
+class="hotel-banner"
+id="hotelBanner">
+</div>
+
+<div class="row g-4 mt-4">
+
+<div class="col-lg-8">
+
+<div class="hotel-info-card">
+
+<h2 id="hotelPrice">
+₹0 / night
+</h2>
+
+<div
+class="hotel-rating"
+id="hotelRating">
+</div>
+
+<p id="hotelDescription"></p>
+
+<h3 class="mt-4 mb-4">
+Amenities
+</h3>
+
+<div class="amenities">
+
+<div class="amenity-box">
+<i class="bi bi-wifi"></i>
+<span>Free Wifi</span>
+</div>
+
+<div class="amenity-box">
+<i class="bi bi-cup-hot"></i>
+<span>Breakfast</span>
+</div>
+
+<div class="amenity-box">
+<i class="bi bi-water"></i>
+<span>Swimming Pool</span>
+</div>
+
+<div class="amenity-box">
+<i class="bi bi-car-front"></i>
+<span>Parking</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="booking-card">
+
+<h3 class="mb-4">
+Book This Hotel
+</h3>
+
+<input
+type="date"
+id="checkInDate"
+class="form-control mb-3">
+
+<input
+type="date"
+id="checkOutDate"
+class="form-control mb-3">
+
+<input
+type="number"
+id="guests"
+class="form-control mb-4"
+placeholder="Guests">
+
+<button
+class="btn btn-primary w-100 book-btn"
+onclick="bookHotel()">
+
+Book Now
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<h3>
+TripNext AI
+</h3>
+
+<p>
+AI Powered Travel & Hotel Booking Platform
+</p>
+
+</footer>
+
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<script
+src="https://checkout.razorpay.com/v1/checkout.js">
+</script>
+
+<script>
+
+const urlParams =
+new URLSearchParams(window.location.search);
+
+const hotelId =
+urlParams.get("id");
+
+async function loadHotelDetails(){
+
+    if(!hotelId){
+
+        alert("Hotel ID not found!");
+
+        return;
+    }
+
+    try{
+
+        const response =
+        await fetch(
+            `http://localhost:8080/api/hotels/${hotelId}`
+        );
+
+        if(!response.ok){
+
+            throw new Error("Hotel not found");
+        }
+
+        const hotel =
+        await response.json();
+
+        window.hotelPrice =
+        hotel.price;
+
+        document.getElementById(
+            "hotelBanner"
+        ).innerHTML = `
+
+        <img
+        src="${hotel.imageUrl}"
+        class="banner-image">
+
+        <div class="banner-overlay">
+
+            <h1>
+                ${hotel.hotelName}
+            </h1>
+
+            <p>
+                ${hotel.location}
+            </p>
+
+        </div>
+        `;
+
+        document.getElementById(
+            "hotelPrice"
+        ).innerHTML =
+        `₹${hotel.price} <span>/ night</span>`;
+
+        document.getElementById(
+            "hotelRating"
+        ).innerHTML =
+        `<i class="bi bi-star-fill"></i> ${hotel.rating}`;
+
+        document.getElementById(
+            "hotelDescription"
+        ).innerText =
+        hotel.description;
+
+    }catch(error){
+
+        console.log(error);
+
+        alert("Failed to load hotel details");
+    }
+}
+
+async function bookHotel(){
+
+    const user =
+    JSON.parse(
+        localStorage.getItem("user")
+    );
+
+    if(!user){
+
+        alert("Please login first!");
+
+        window.location.href =
+        "http://localhost:8080/login";
+
+        return;
+    }
+
+    const checkInDate =
+    document.getElementById(
+        "checkInDate"
+    ).value;
+
+    const checkOutDate =
+    document.getElementById(
+        "checkOutDate"
+    ).value;
+
+    const guests =
+    document.getElementById(
+        "guests"
+    ).value;
+
+    if(
+        !checkInDate ||
+        !checkOutDate ||
+        !guests
+    ){
+
+        alert("Please fill all details!");
+
+        return;
+    }
+
+    try{
+
+        const orderResponse =
+        await fetch(
+
+            `http://localhost:8080/create-order?amount=${window.hotelPrice}`,
+
+            {
+                method:"POST"
+            }
+        );
+
+        const order =
+        await orderResponse.json();
+
+        const options = {
+
+            key:"rzp_test_SoUr1jQGbH76t6",
+
+            amount:order.amount,
+
+            currency:"INR",
+
+            name:"TripNext AI",
+
+            description:"Hotel Booking Payment",
+
+            order_id:order.id,
+
+            handler:async function(response){
+
+                const bookingData = {
+
+                    checkInDate:checkInDate,
+
+                    checkOutDate:checkOutDate,
+
+                    numberOfGuests:guests,
+
+                    user:{
+                        id:user.id
+                    },
+
+                    hotel:{
+                        id:hotelId
+                    }
+                };
+
+                const bookingResponse =
+                await fetch(
+
+                    "http://localhost:8080/api/bookings/book",
+
+                    {
+                        method:"POST",
+
+                        headers:{
+                            "Content-Type":"application/json"
+                        },
+
+                        body:JSON.stringify(
+                            bookingData
+                        )
+                    }
+                );
+
+                if(bookingResponse.ok){
+
+                    alert(
+                        "Payment Successful & Booking Confirmed!"
+                    );
+
+                    window.location.href =
+                    "http://localhost:8080/dashboard";
+
+                }else{
+
+                    alert("Booking Failed!");
+                }
+            },
+
+            theme:{
+                color:"#2563eb"
+            }
+        };
+
+        const rzp1 =
+        new Razorpay(options);
+
+        rzp1.open();
+
+    }catch(error){
+
+        console.log(error);
+
+        alert("Payment Failed!");
+    }
+}
+
+loadHotelDetails();
+
+</script>
+
+</body>
+
+</html>
