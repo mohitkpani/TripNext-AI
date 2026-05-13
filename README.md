@@ -74,6 +74,12 @@ The platform allows users to explore tourist destinations, book hotels, make sec
 
 # 📸 Screenshots
 
+## Homepage 1
+![Homepage 1](screenshots/homepage-1.jpg)
+
+## Homepage 2
+![Homepage 2](screenshots/homepage-2.jpg)
+
 ## Admin Dashboard
 ![Admin Dashboard](screenshots/admin-dashboard.jpg)
 
