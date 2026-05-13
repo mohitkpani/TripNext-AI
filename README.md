@@ -75,25 +75,25 @@ The platform allows users to explore tourist destinations, book hotels, make sec
 # 📸 Screenshots
 
 ## Admin Dashboard
-![Admin Dashboard](screenshots/admin-dashboard.png)
+![Admin Dashboard](screenshots/admin-dashboard.jpg)
 
 ## User Dashboard
-![User Dashboard](screenshots/user-dashboard.png)
+![User Dashboard](screenshots/user-dashboard.jpg)
 
 ## Explore Hotels
-![Explore Hotels](screenshots/explore-hotels.png)
+![Explore Hotels](screenshots/explore-hotels.jpg)
 
 ## Explore Places
-![Explore Places](screenshots/explore-places.png)
+![Explore Places](screenshots/explore-places.jpg)
 
 ## Hotel Booking
-![Hotel Booking](screenshots/hotel-booking.png)
+![Hotel Booking](screenshots/hotel-booking.jpg)
 
 ## Payment Page
-![Payment](screenshots/payment.png)
+![Payment](screenshots/payment.jpg)
 
 ## Place Details
-![Place Details](screenshots/place.png)
+![Place Details](screenshots/place.jpg)
 
 ---
 
