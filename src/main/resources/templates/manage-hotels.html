@@ -497,7 +497,7 @@ async function loadHotels(){
 
         const response =
         await fetch(
-            "http://localhost:8080/api/hotels/all"
+            "/api/hotels/all"
         );
 
         const hotels =
@@ -606,7 +606,7 @@ async function deleteHotel(id){
         const response =
         await fetch(
 
-`http://localhost:8080/api/hotels/delete/${id}`,
+`/api/hotels/delete/${id}`,
 
         {
 

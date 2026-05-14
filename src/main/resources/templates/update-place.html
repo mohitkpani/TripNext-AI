@@ -710,7 +710,7 @@ async function loadPlace(){
         const response =
         await fetch(
 
-`http://localhost:8080/api/places/${placeId}`
+`/api/places/${placeId}`
 
         );
 
@@ -777,7 +777,7 @@ document.getElementById(
             const response =
             await fetch(
 
-`http://localhost:8080/api/places/update/${placeId}`,
+`/api/places/update/${placeId}`,
 
             {
                 method:"PUT",

@@ -214,7 +214,7 @@ async function loadHotels(){
         const response =
         await fetch(
 
-"http://localhost:8080/api/hotels/search-all?keyword=" + keyword
+"/api/hotels/search-all?keyword=" + keyword
 
         );
 
@@ -296,7 +296,7 @@ async function loadHotels(){
 function viewHotel(id){
 
     window.location.href =
-"http://localhost:8080/hotel-details?id=" + id;
+"/hotel-details?id=" + id;
 }
 
 loadHotels();

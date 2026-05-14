@@ -750,7 +750,7 @@ async function loadHotel(){
         const response =
         await fetch(
 
-`http://localhost:8080/api/hotels/${hotelId}`
+`/api/hotels/${hotelId}`
 
         );
 
@@ -823,7 +823,7 @@ document.getElementById(
             const response =
             await fetch(
 
-`http://localhost:8080/api/hotels/update/${hotelId}`,
+`/api/hotels/update/${hotelId}`,
 
             {
                 method:"PUT",

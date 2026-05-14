@@ -565,7 +565,7 @@ async function loadBookings(){
 
         const response =
         await fetch(
-            `http://localhost:8080/api/bookings/user/${user.id}`
+            `/api/bookings/user/${user.id}`
         );
 
         const bookings =
@@ -747,7 +747,7 @@ async function cancelBooking(id){
 
         const response =
         await fetch(
-            `http://localhost:8080/api/bookings/delete/${id}`,
+            `/api/bookings/delete/${id}`,
             {
                 method:"DELETE"
             }

@@ -509,7 +509,7 @@ async function loadPlaces(){
         const response =
         await fetch(
 
-"http://localhost:8080/api/places/all"
+"/api/places/all"
 
         );
 
@@ -624,7 +624,7 @@ async function deletePlace(id){
         const response =
         await fetch(
 
-"http://localhost:8080/api/places/delete/" + id,
+"/api/places/delete/" + id,
 
         {
             method:"DELETE"
