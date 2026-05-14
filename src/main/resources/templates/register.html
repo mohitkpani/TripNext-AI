@@ -238,60 +238,65 @@
 
 <script>
 
-    document.getElementById("registerForm")
-    .addEventListener("submit", async function(event){
+document.getElementById("registerForm")
+.addEventListener("submit", async function(event){
 
-        event.preventDefault();
+    event.preventDefault();
 
-        const name =
-        document.getElementById("name").value;
+    const name =
+    document.getElementById("name").value;
 
-        const email =
-        document.getElementById("email").value;
+    const email =
+    document.getElementById("email").value;
 
-        const password =
-        document.getElementById("password").value;
+    const password =
+    document.getElementById("password").value;
 
-        try{
+    try{
 
-            const response = await fetch(
-                "/api/users/register",
-                {
+        const response = await fetch(
+            "/api/users/register",
+            {
 
-                    method:"POST",
+                method:"POST",
 
-                    headers:{
-                        "Content-Type":"application/json"
-                    },
+                headers:{
+                    "Content-Type":"application/json"
+                },
 
-                    body: JSON.stringify({
+                body: JSON.stringify({
 
-                        name:name,
-                        email:email,
-                        password:password
-                    })
-                }
-            );
-
-            const data = await response.json();
-
-            if(data && data.id){
-
-                alert("Registration Successful!");
-
-                window.location.href="/login";
-
-            }else{
-
-                alert("Registration Failed!");
+                    name:name,
+                    email:email,
+                    password:password
+                })
             }
+        );
 
-        }catch(error){
+        // SUCCESS
+        if(response.ok){
 
-            alert("Something went wrong!");
+            alert("Registration Successful!");
+
+            window.location.href="/login";
         }
 
-    });
+        // ERROR
+        else{
+
+            const errorMessage = await response.text();
+
+            alert(errorMessage || "Registration Failed!");
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        alert("Something went wrong!");
+    }
+
+});
 
 </script>
 
