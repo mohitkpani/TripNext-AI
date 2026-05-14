@@ -18,32 +18,45 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private EmailService emailService;
 	
+	
 	@Override
 	public User registerUser(User user) {
 
-	    if(user.getRole() == null) {
-	        user.setRole(Role.USER);
-	    }
-	    
-	    emailService.sendEmail(
+    if(user.getRole() == null) {
+        user.setRole(Role.USER);
+    }
 
-	            user.getEmail(),
+    // Save user first
+    User savedUser = userRepo.save(user);
 
-	            "Welcome to TripNext AI",
+    // Try sending email
+    try {
 
-	            "Hello " + user.getName() +
+        emailService.sendEmail(
 
-	            ",\n\nWelcome to TripNext AI!\n\n" +
+                user.getEmail(),
 
-	            "Your account has been created successfully.\n\n" +
+                "Welcome to TripNext AI",
 
-	            "Enjoy booking hotels with us.\n\n" +
+                "Hello " + user.getName() +
 
-	            "Team TripNext AI"
-	    );
-	    
-	    return userRepo.save(user);
-	}
+                ",\n\nWelcome to TripNext AI!\n\n" +
+
+                "Your account has been created successfully.\n\n" +
+
+                "Enjoy booking hotels with us.\n\n" +
+
+                "Team TripNext AI"
+        );
+
+    } catch (Exception e) {
+
+        System.out.println("Email sending failed");
+        e.printStackTrace();
+    }
+
+    return savedUser;
+}
 	
 	@Override
 	public User loginUser(String email, String password) {
