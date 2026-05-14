@@ -20,16 +20,22 @@ public class UserServiceImpl implements UserService{
 	
 	
 	@Override
-	public User registerUser(User user) {
+public User registerUser(User user) {
 
+    // Check duplicate email
+    if(userRepo.findByEmail(user.getEmail()).isPresent()) {
+        throw new RuntimeException("Email already exists");
+    }
+
+    // Set default role
     if(user.getRole() == null) {
         user.setRole(Role.USER);
     }
 
-    // Save user first
+    // SAVE USER FIRST
     User savedUser = userRepo.save(user);
 
-    // Try sending email
+    // SEND EMAIL SAFELY
     try {
 
         emailService.sendEmail(
@@ -51,8 +57,8 @@ public class UserServiceImpl implements UserService{
 
     } catch (Exception e) {
 
-        System.out.println("Email sending failed");
-        e.printStackTrace();
+        System.out.println("EMAIL FAILED BUT USER SAVED");
+
     }
 
     return savedUser;
